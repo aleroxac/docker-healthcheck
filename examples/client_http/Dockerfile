@@ -13,7 +13,7 @@ FROM base AS build
 WORKDIR /build
 COPY . .
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -o server main.go
-RUN go install "github.com/aleroxac/docker-healthcheck/healthcheck"
+RUN go install "github.com/aleroxac/docker-healthcheck/cmd/healthcheck/main.go"
 RUN pwd; which healthcheck
 
 # FROM scratch

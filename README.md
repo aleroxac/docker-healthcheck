@@ -14,14 +14,15 @@ export HEALTHCHECK_HOST=localhost
 export HEALTHCHECK_PORT=8080
 export HEALTHCHECK_PATH=/
 
-go build -o healthcheck healthcheck/healthcheck.go
-timeout 5 bash -c "while true; do ./healthcheck/healthcheck; sleep 0.2; done"
+go build -o healthcheck cmd/healthcheck/main.go
+timeout 5 bash -c "while true; do ./healthcheck; sleep 0.2; done"
 docker rm -f healthcheck-test
 ```
 ![on left side, a view of the nginx container logs and on right side, a loop while running the healthcheck](assets/run-locally.png)
 
 ### docker build
 ``` shell
+cd examples/client_http
 docker build \
     --build-arg="HEALTHCHECK_PROTOCOL=http" \
     --build-arg="HEALTHCHECK_HOST=localhost" \
